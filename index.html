@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 raisons de t'aimer 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose-deep: #C2607A;
+    --rose-mid: #E8A0B0;
+    --rose-light: #FAE8ED;
+    --rose-blush: #FDF3F6;
+    --petal: #F7D6DF;
+    --cream: #FFF8FA;
+    --text-dark: #3D1A24;
+    --text-mid: #7A4055;
+    --text-soft: #B07088;
+  }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: var(--cream);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Pétales flottants en arrière-plan */
+  .petals-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal-float {
+    position: absolute;
+    opacity: 0;
+    animation: floatDown linear infinite;
+  }
+
+  @keyframes floatDown {
+    0%   { opacity: 0; transform: translateY(-60px) rotate(0deg); }
+    10%  { opacity: 0.6; }
+    90%  { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(110vh) rotate(360deg); }
+  }
+
+  /* Header */
+  .header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+  }
+
+  .header-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 0.75rem;
+  }
+
+  .header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    font-weight: 400;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-title em {
+    font-style: italic;
+    color: var(--rose-deep);
+  }
+
+  .header-sub {
+    font-size: 0.9rem;
+    color: var(--text-soft);
+    font-weight: 300;
+    margin-top: 0.5rem;
+  }
+
+  .header-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--rose-mid);
+    margin: 1.25rem auto 0;
+  }
+
+  /* Fleur décorative SVG */
+  .header-flower {
+    margin-bottom: 0.75rem;
+  }
+
+  /* Compteur */
+  .counter-bar {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    margin: 0 auto 2rem;
+  }
+
+  .counter-text {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--text-soft);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .counter-pills {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    padding: 0 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .counter-pip {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--petal);
+    border: 1px solid var(--rose-mid);
+    transition: background 0.4s, transform 0.3s;
+  }
+
+  .counter-pip.done {
+    background: var(--rose-deep);
+    border-color: var(--rose-deep);
+    transform: scale(1.2);
+  }
+
+  /* Grille calendrier */
+  .calendar-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1rem 4rem;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 14px;
+  }
+
+  /* Case */
+  .day-card {
+    aspect-ratio: 1;
+    position: relative;
+    cursor: pointer;
+    perspective: 800px;
+  }
+
+  .card-inner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 16px;
+  }
+
+  .day-card.flipped .card-inner {
+    transform: rotateY(180deg);
+  }
+
+  .card-front, .card-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .card-front {
+    background: var(--rose-blush);
+    border: 1px solid var(--rose-mid);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .day-card:hover:not(.flipped) .card-front {
+    background: var(--petal);
+    border-color: var(--rose-deep);
+  }
+
+  .card-front:hover .front-icon {
+    animation: wiggle 0.5s ease;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0); }
+    25%  { transform: rotate(-12deg) scale(1.15); }
+    75%  { transform: rotate(12deg) scale(1.15); }
+  }
+
+  .card-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--rose-deep);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .front-icon {
+    font-size: 1.4rem;
+    display: block;
+    margin-top: 6px;
+    transition: transform 0.3s;
+  }
+
+  .front-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-top: 6px;
+  }
+
+  .card-back {
+    background: linear-gradient(145deg, var(--rose-deep), #A04060);
+    transform: rotateY(180deg);
+    text-align: center;
+    padding: 14px;
+  }
+
+  .back-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.55);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .back-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.45;
+    text-align: center;
+  }
+
+  .back-flower {
+    margin-top: 8px;
+    font-size: 1rem;
+    opacity: 0.7;
+  }
+
+  /* Particules au clic */
+  .particle {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.1rem;
+    z-index: 999;
+    animation: particleFly 1s ease-out forwards;
+  }
+
+  @keyframes particleFly {
+    0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.3); }
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(61,26,36,0.45);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    padding: 1rem;
+  }
+
+  .modal-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-box {
+    background: var(--cream);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    transform: scale(0.88) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative;
+    border: 1px solid var(--rose-mid);
+  }
+
+  .modal-overlay.visible .modal-box {
+    transform: scale(1) translateY(0);
+  }
+
+  .modal-day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--text-dark);
+    line-height: 1.55;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .modal-close {
+    display: inline-block;
+    padding: 0.6rem 2rem;
+    border-radius: 999px;
+    background: var(--rose-deep);
+    color: #fff;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .modal-close:hover { background: #A04060; transform: scale(1.03); }
+
+  .modal-deco {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  /* Footer doux */
+  .footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    color: var(--text-soft);
+    font-size: 0.8rem;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+
+  @media (max-width: 480px) {
+    .calendar-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .card-number { font-size: 1.3rem; }
+    .front-icon { font-size: 1.1rem; }
+    .front-label { display: none; }
+    .back-text { font-size: 0.75rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card-inner, .petal-float, .particle { animation: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Pétales flottants -->
+<div class="petals-bg" id="petals"></div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-flower">
+    <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="26" cy="12" rx="6" ry="10" fill="#FAE8ED" stroke="#E8A0B0" stroke-width="1"/>
+      <ellipse cx="26" cy="12" rx="6" ry="10" fill="#FAE8ED" stroke="#E8A0B0" stroke-width="1" transform="rotate(60 26 26)"/>
+      <ellipse cx="26" cy="12" rx="6" ry="10" fill="#FAE8ED" stroke="#E8A0B0" stroke-width="1" transform="rotate(120 26 26)"/>
+      <ellipse cx="26" cy="12" rx="6" ry="10" fill="#FAE8ED" stroke="#E8A0B0" stroke-width="1" transform="rotate(180 26 26)"/>
+      <ellipse cx="26" cy="12" rx="6" ry="10" fill="#FAE8ED" stroke="#E8A0B0" stroke-width="1" transform="rotate(240 26 26)"/>
+      <ellipse cx="26" cy="12" rx="6" ry="10" fill="#FAE8ED" stroke="#E8A0B0" stroke-width="1" transform="rotate(300 26 26)"/>
+      <circle cx="26" cy="26" r="7" fill="#C2607A"/>
+      <circle cx="26" cy="26" r="4" fill="#FAE8ED"/>
+    </svg>
+  </div>
+  <p class="header-eyebrow">Pour toi, chaque jour</p>
+  <h1 class="header-title">30 raisons de<br>t'aimer, <em>Cleo</em></h1>
+  <p class="header-sub">Clique sur chaque case pour découvrir un secret du cœur</p>
+  <div class="header-divider"></div>
+</header>
+
+<!-- Compteur -->
+<div class="counter-bar">
+  <p class="counter-text" id="counter-text">0 / 30 découvertes</p>
+  <div class="counter-pills" id="pips"></div>
+</div>
+
+<!-- Grille -->
+<main class="calendar-wrap">
+  <div class="calendar-grid" id="grid"></div>
+</main>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true">
+  <div class="modal-box">
+    <span class="modal-deco" id="modal-deco">🌸</span>
+    <p class="modal-day-num" id="modal-day-num">Raison n° 1</p>
+    <p class="modal-text" id="modal-text"></p>
+    <button class="modal-close" id="modal-close">Fermer ✦</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <p style="margin-bottom: 0.6rem;">Avec tout mon amour, pour toujours 🌸</p>
+  <p style="font-style: normal; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--text-soft); opacity: 0.7;">développé avec soin par ton copain &nbsp;✦&nbsp; <span style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.9rem; color: var(--rose-deep); opacity: 1;">Matys</span></p>
+</footer>
+
+<script>
+const REASONS = [
+  "Parce que ton rire illumine n'importe quelle pièce où tu entres.",
+  "Parce que tu me regardes comme si j'étais la meilleure chose qui te soit arrivée.",
+  "Parce que ta façon de prendre soin des autres est la plus belle chose que j'aie vue.",
+  "Parce que tu rends les moments ordinaires extraordinaires, juste en étant là.",
+  "Parce que ton sourire du matin est ma couleur préférée.",
+  "Parce que tu es courageuse même quand tu as peur.",
+  "Parce que tu m'apprends à voir le monde avec plus de douceur.",
+  "Parce que ta voix est la mélodie que j'ai envie d'entendre tous les jours.",
+  "Parce que tu sais exactement quoi dire quand je n'ai pas les mots.",
+  "Parce que tu es belle d'une façon que je ne saurais jamais tout à fait expliquer.",
+  "Parce que tu te bats pour ce qui compte, avec tout ton cœur.",
+  "Parce que même tes petits défauts me font t'aimer davantage.",
+  "Parce que tu m'as choisi, et ce choix me rend fier chaque jour.",
+  "Parce que ta curiosité me donne envie de tout redécouvrir avec toi.",
+  "Parce que tu sais être silencieuse avec moi, et que ce silence est doux.",
+  "Parce que ta gentillesse n'est pas une faiblesse — c'est ta plus grande force.",
+  "Parce que tu changes sans te perdre, et ça me fascine.",
+  "Parce que quand tu ris aux éclats, le monde s'arrête une seconde.",
+  "Parce que tu m'as appris ce que veut dire avoir confiance en quelqu'un.",
+  "Parce que tu portes les gens que tu aimes avec une grâce rare.",
+  "Parce que tes yeux trahissent tout ce que tu ressens — et j'aime lire en eux.",
+  "Parce que tu te dépasses constamment, sans jamais le revendiquer.",
+  "Parce que tu m'as fait comprendre que l'amour, ça se construit à deux.",
+  "Parce que ta présence, même à distance, me réchauffe.",
+  "Parce que tu n'as pas peur d'aimer fort.",
+  "Parce que tu me rends meilleur, simplement en étant toi.",
+  "Parce que chaque souvenir avec toi est un trésor que je garde précieusement.",
+  "Parce que tu es la maison où mon cœur revient toujours.",
+  "Parce que rien de ce qui m'arrive n'a autant de sens que toi.",
+  "Parce que tu existes, et que ma vie est infiniment plus belle depuis.",
+];
+
+const ICONS = ["🌸","🌷","🌺","✿","🌼","💮","🌸","🌷","🌺","✿",
+               "🌼","💮","🌸","🌷","🌺","✿","🌼","💮","🌸","🌷",
+               "🌺","✿","🌼","💮","🌸","🌷","🌺","✿","🌼","💮"];
+
+const STORAGE_KEY = "calendar_amour_state";
+let opened = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(opened)); }
+
+function updateCounter() {
+  const n = opened.length;
+  document.getElementById("counter-text").textContent = `${n} / 30 découvertes`;
+  document.querySelectorAll(".counter-pip").forEach((p, i) => {
+    p.classList.toggle("done", opened.includes(i + 1));
+  });
+}
+
+function spawnParticles(x, y) {
+  const emojis = ["🌸","✦","💗","🌷","✿","💕"];
+  for (let i = 0; i < 9; i++) {
+    const el = document.createElement("div");
+    el.className = "particle";
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    const angle = (Math.PI * 2 * i) / 9;
+    const dist = 60 + Math.random() * 60;
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    el.style.setProperty("--tx", Math.cos(angle) * dist + "px");
+    el.style.setProperty("--ty", Math.sin(angle) * dist + "px");
+    el.style.animationDelay = (Math.random() * 0.15) + "s";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 1200);
+  }
+}
+
+function openModal(n, text) {
+  document.getElementById("modal-day-num").textContent = "Raison n° " + n;
+  document.getElementById("modal-text").textContent = text;
+  document.getElementById("modal-deco").textContent = ICONS[n - 1];
+  document.getElementById("modal").classList.add("visible");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.remove("visible");
+}
+
+document.getElementById("modal-close").addEventListener("click", closeModal);
+document.getElementById("modal").addEventListener("click", e => {
+  if (e.target === document.getElementById("modal")) closeModal();
+});
+
+// Grille
+const grid = document.getElementById("grid");
+for (let i = 1; i <= 30; i++) {
+  const card = document.createElement("div");
+  card.className = "day-card" + (opened.includes(i) ? " flipped" : "");
+  card.dataset.n = i;
+  card.innerHTML = `
+    <div class="card-inner">
+      <div class="card-front">
+        <span class="card-number">${i}</span>
+        <span class="front-icon">${ICONS[i-1]}</span>
+        <span class="front-label">Découvrir</span>
+      </div>
+      <div class="card-back">
+        <p class="back-number">Raison ${i}</p>
+        <p class="back-text">${REASONS[i-1]}</p>
+        <span class="back-flower">✦</span>
+      </div>
+    </div>`;
+
+  card.addEventListener("click", e => {
+    const n = parseInt(card.dataset.n);
+    const rect = card.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+
+    if (!opened.includes(n)) {
+      opened.push(n);
+      save();
+      card.classList.add("flipped");
+      spawnParticles(cx, cy);
+      updateCounter();
+    }
+    setTimeout(() => openModal(n, REASONS[n - 1]), 200);
+  });
+
+  grid.appendChild(card);
+}
+
+// Pips
+const pipsEl = document.getElementById("pips");
+for (let i = 0; i < 30; i++) {
+  const pip = document.createElement("div");
+  pip.className = "counter-pip";
+  pipsEl.appendChild(pip);
+}
+updateCounter();
+
+// Pétales flottants
+const petalsSVGs = [
+  `<svg width="18" height="22" viewBox="0 0 18 22"><ellipse cx="9" cy="11" rx="6" ry="10" fill="#F7D6DF" opacity="0.85"/></svg>`,
+  `<svg width="14" height="18" viewBox="0 0 14 18"><ellipse cx="7" cy="9" rx="4" ry="8" fill="#FAE8ED" opacity="0.75"/></svg>`,
+  `<svg width="20" height="14" viewBox="0 0 20 14"><ellipse cx="10" cy="7" rx="9" ry="6" fill="#F7D6DF" opacity="0.65"/></svg>`,
+];
+
+const bg = document.getElementById("petals");
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement("div");
+  p.className = "petal-float";
+  p.innerHTML = petalsSVGs[i % petalsSVGs.length];
+  p.style.left = (Math.random() * 100) + "%";
+  p.style.animationDuration = (8 + Math.random() * 10) + "s";
+  p.style.animationDelay = (Math.random() * 12) + "s";
+  p.style.transform = `rotate(${Math.random()*360}deg)`;
+  bg.appendChild(p);
+}
+</script>
+</body>
+</html>
